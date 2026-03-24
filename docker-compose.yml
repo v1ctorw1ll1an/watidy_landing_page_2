@@ -11,10 +11,10 @@ services:
       - TZ=America/Sao_Paulo
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.landingpage.rule=Host(`landingpage.watidy.com.br`)"
-      - "traefik.http.routers.landingpage.entrypoints=websecure"
-      - "traefik.http.routers.landingpage.tls.certresolver=letsencrypt"
-      - "traefik.http.services.landingpage.loadbalancer.server.port=3002" # ou porta que seu frontend usa
+      - "traefik.http.routers.lead.rule=Host(`lead.watidy.com.br`)"
+      - "traefik.http.routers.lead.entrypoints=websecure"
+      - "traefik.http.routers.lead.tls.certresolver=letsencrypt"
+      - "traefik.http.services.lead.loadbalancer.server.port=3002" # ou porta que seu frontend usa
     expose:
       - 3002
     networks:
