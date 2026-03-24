@@ -1,21 +1,25 @@
 services:
-  dev:
-    image: oven/bun:latest
-    working_dir: /app
-    volumes:
-      - .:/app
-      - /app/node_modules
-    ports:
-      - "5173:5173"
-    command: bun run dev -- --host 0.0.0.0
-    profiles:
-      - dev
-
-  prod:
+  watidy_landing_page_2:
     build:
       context: .
       target: production
+    restart: unless-stopped
+
     ports:
-      - "80:80"
-    profiles:
-      - prod
+      - 3002:3002
+    environment:
+      - TZ=America/Sao_Paulo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.landingpage.rule=Host(`landingpage.watidy.com.br`)"
+      - "traefik.http.routers.landingpage.entrypoints=websecure"
+      - "traefik.http.routers.landingpage.tls.certresolver=letsencrypt"
+      - "traefik.http.services.landingpage.loadbalancer.server.port=3002" # ou porta que seu frontend usa
+    expose:
+      - 3002
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
