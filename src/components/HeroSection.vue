@@ -37,8 +37,11 @@ onMounted(() => {
   )
   if (videoWrapper.value) observer.observe(videoWrapper.value)
 
-  // Particles apenas em desktop
-  if (window.innerWidth >= 1024) initParticles()
+  // Particles apenas em desktop — adiado para não bloquear LCP
+  if (window.innerWidth >= 1024) {
+    const start = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 200))
+    start(initParticles)
+  }
 })
 
 onUnmounted(() => {
@@ -159,7 +162,7 @@ function initParticles() {
               autoplay
               muted
               playsinline
-              preload="auto"
+              preload="metadata"
               poster="/imgs/Arte1.avif"
               width="600"
               height="338"
