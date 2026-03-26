@@ -3,6 +3,8 @@
 node_modules/
 /dist/
 
+video-hero.mp4
+
 # Local environment files
 .env
 .env.local
