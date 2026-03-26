@@ -87,41 +87,43 @@ const features = [
   },
 ]
 ---
-<section id="recursos" class="pt-20 lg:pt-36 pb-20 lg:pb-28 bg-white">
-  <div class="container mx-auto px-4 py-10">
-    <div class="text-center pb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+<section id="recursos" class="pt-12 lg:pt-20 pb-8 lg:pb-12 bg-white">
+  <div class="container mx-auto px-4 pb-8 lg:pb-12">
+    <div class="text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 text-balance">
         Na desorganização do seu WhatsApp, o preço é alto,
-        <br />
+        <br class="hidden sm:block" />
         oportunidades escapam e vendas se perdem.
       </h2>
-      <p class="text-lg max-w-2xl mx-auto text-gray-600">
-        waTidy tem funcionalidades essenciais para gerenciar
-        <br />
+      <p class="text-lg max-w-2xl mx-auto text-gray-600 text-pretty">
+        WaTidy tem funcionalidades essenciais para gerenciar
         e potencializar suas vendas pelo Whatsapp
       </p>
     </div>
   </div>
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mx-10">
+  <div class="container mx-auto overflow-x-auto scrollbar-hide sm:overflow-visible">
+    <div class="flex gap-4 px-4 pb-4
+                sm:grid sm:grid-cols-2 sm:overflow-visible sm:gap-8 sm:mx-10 sm:px-0 sm:pb-0
+                lg:grid-cols-3 lg:gap-10">
       {features.map((feature) => (
-        <div class="group relative p-6 rounded-2xl border border-gray-200 bg-white shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
+        <div class="snap-start shrink-0 w-[82vw] sm:w-auto
+                    group relative p-6 rounded-2xl border border-gray-200 bg-white shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
           <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary)]/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none z-0"></div>
           <div class="relative z-10">
-            <div class="mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-gray-100 text-[var(--color-primary)] border border-gray-200 transition-transform group-hover:scale-105" set:html={feature.svg} />
-            <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-primary)] transition-colors">
+            <div class="mb-4 mx-auto sm:mx-0 w-14 h-14 flex items-center justify-center rounded-xl bg-gray-100 text-[var(--color-primary)] border border-gray-200 transition-transform group-hover:scale-105" set:html={feature.svg} />
+            <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-primary)] transition-colors text-center sm:text-left">
               {feature.title}
             </h3>
-            <p class="text-gray-600 leading-relaxed">{feature.description}</p>
+            <p class="text-gray-600 leading-relaxed text-center sm:text-left text-pretty">{feature.description}</p>
           </div>
         </div>
       ))}
     </div>
   </div>
-  <div class="container mx-auto px-4 py-5 mt-10">
+  <div class="container mx-auto px-4 pb-0 mt-8">
     <a
       href="#precos"
-      class="block text-2xl mx-auto w-full py-4 max-w-[400px] text-center font-bold rounded-xl bg-[var(--color-primary)] text-black hover:scale-105 transition-transform"
+      class="block text-2xl mx-auto w-full py-4 max-w-[400px] text-center font-bold rounded-xl bg-[var(--color-primary)] text-black shadow-lg hover:scale-105 transition-transform"
     >
       Assinar agora
     </a>

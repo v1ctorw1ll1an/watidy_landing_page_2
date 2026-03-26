@@ -42,7 +42,7 @@ const faqs = [
 </script>
 
 <template>
-  <section id="perguntas-frequentes" class="max-w-4xl mx-auto px-4 pt-20 lg:pt-36 pb-20 lg:pb-28 bg-white">
+  <section id="perguntas-frequentes" class="max-w-4xl mx-auto px-4 pt-12 lg:pt-20 pb-8 lg:pb-12 bg-white">
     <h2 class="text-4xl font-bold mb-16 text-center text-gray-900">Perguntas Frequentes</h2>
     <div class="w-full max-w-4xl mx-auto">
       <div v-for="faq in faqs" :key="faq.id" class="border-b border-gray-200">

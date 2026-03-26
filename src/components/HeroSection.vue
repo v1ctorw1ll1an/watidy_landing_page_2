@@ -1,6 +1,15 @@
 <script setup>
 import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue'
 import { hexToRgb } from '../utils/color.js'
+import { useModal } from '../composables/useModal.js'
+
+const { openModal } = useModal()
+
+const showVideo = ref(false)
+
+function loadVideo() {
+  showVideo.value = true
+}
 
 const videoWrapper = ref(null)
 const isFloating = ref(false)
@@ -31,7 +40,7 @@ onMounted(() => {
   // IntersectionObserver para o vídeo flutuante
   observer = new IntersectionObserver(
     ([entry]) => {
-      if (!isClosed.value) isFloating.value = !entry.isIntersecting
+      if (!isClosed.value && showVideo.value) isFloating.value = !entry.isIntersecting
     },
     { threshold: 0.1 },
   )
@@ -120,7 +129,7 @@ function initParticles() {
 </script>
 
 <template>
-  <section class="pt-32 pb-20 lg:pb-28 bg-white relative">
+  <section class="pt-32 pb-8 lg:pb-12 bg-white relative">
     <!-- Canvas de partículas (desktop only) -->
     <canvas
       ref="canvasRef"
@@ -130,12 +139,12 @@ function initParticles() {
 
     <div class="container mx-auto px-4 relative z-10">
       <div
-        class="flex flex-col gap-5 pt-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center lg:pt-12 xl:px-10 2xl:px-3">
+        class="flex flex-col gap-5 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center xl:px-10 2xl:px-3">
         <!-- Título + descrição (desktop) + botão (desktop) -->
         <div class="order-1 lg:col-span-7 flex flex-col items-center">
           <h1
-            class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-4 lg:mb-6 leading-tight text-center text-gray-900">
-            <span class="text-[var(--color-primary)]">waTidy</span> — CRM para WhatsApp
+            class="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-4 lg:mb-6 leading-tight text-center text-gray-900 text-balance">
+            <span class="text-[var(--color-primary)] text-shadow-brand">WaTidy</span> — CRM para WhatsApp
             que potencializa suas vendas
           </h1>
           <!-- Descrição: oculta no mobile -->
@@ -145,15 +154,41 @@ function initParticles() {
             precisou para dentro do seu whatsapp web.
           </p>
           <!-- Botão: oculto no mobile -->
-          <a href="#precos"
+          <button
+            @click="openModal"
             class="hidden lg:flex cursor-pointer px-20 xl:px-28 py-6 2xl:py-8 rounded-2xl text-xl 2xl:text-3xl text-black font-bold shadow-lg bg-[var(--color-primary)] justify-center items-center gap-2 hover:scale-105 transition-transform">
             Criar Conta Gratuita
-          </a>
+          </button>
         </div>
 
         <!-- Vídeo -->
         <div ref="videoWrapper" class="order-2 lg:col-span-5 w-full">
-          <div class="video-pulse-wrapper rounded-2xl">
+          <!-- Facade: thumbnail até o clique -->
+          <div
+            v-if="!showVideo"
+            class="relative cursor-pointer rounded-2xl overflow-hidden shadow-xl group"
+            @click="loadVideo"
+          >
+            <img
+              src="/Thumbnail Youtube.png"
+              alt="Assistir demonstração do waTidy"
+              class="w-full block"
+              width="600"
+              height="338"
+              fetchpriority="high"
+            />
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/25 group-hover:bg-black/35 transition-colors duration-200">
+              <div class="bg-[var(--color-primary)] rounded-full p-4 shadow-xl group-hover:scale-110 transition-transform duration-200">
+                <svg class="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <span class="mt-3 text-white font-bold text-sm tracking-wide drop-shadow-md">Assistir demonstração</span>
+            </div>
+          </div>
+
+          <!-- Vídeo: carregado apenas após clique -->
+          <div v-else class="video-pulse-wrapper rounded-2xl">
             <video
               ref="mainVideoRef"
               src="/video-hero.mp4"
@@ -162,9 +197,8 @@ function initParticles() {
               autoplay
               muted
               playsinline
-              preload="metadata"
-              fetchpriority="high"
-              poster="/imgs/Arte1.avif"
+              preload="auto"
+              poster="/Thumbnail Youtube.png"
               width="600"
               height="338"
             ></video>
@@ -172,10 +206,11 @@ function initParticles() {
         </div>
 
         <!-- Botão mobile: oculto no desktop -->
-        <a href="#precos"
+        <button
+          @click="openModal"
           class="order-3 lg:hidden cursor-pointer w-full py-5 rounded-2xl text-lg text-black font-bold shadow-lg bg-[var(--color-primary)] flex justify-center items-center hover:scale-105 transition-transform">
           Criar Conta Gratuita
-        </a>
+        </button>
       </div>
     </div>
   </section>
