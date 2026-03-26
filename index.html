@@ -3,21 +3,137 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>waTidy - CRM para WhatsApp | Extensão Chrome para Vendas</title>
     <meta
       name="description"
-      content="CRM poderoso e moderno para times que usam WhatsApp. Simplifique sua comunicação com o Watidy."
+      content="waTidy é o CRM para WhatsApp mais completo do Brasil. Gerencie leads, automatize atendimentos e aumente suas vendas com a extensão para Chrome. Mais de 250.000 usuários."
     />
-    <meta
-      name="keywords"
-      content="CRM WhatsApp, Watidy, CRM para times, Automação WhatsApp, Atendimento WhatsApp"
-    />
-    <meta property="og:title" content="Watidy - CRM para WhatsApp" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://watidy.com.br/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://watidy.com.br/" />
+    <meta property="og:site_name" content="waTidy" />
+    <meta property="og:title" content="waTidy - CRM para WhatsApp | Extensão Chrome para Vendas" />
     <meta
       property="og:description"
-      content="Transforme a comunicação da sua equipe com o Watidy."
+      content="waTidy é o CRM para WhatsApp mais completo do Brasil. Gerencie leads, automatize atendimentos e aumente suas vendas. Mais de 250.000 usuários."
     />
-    <meta property="og:image" content="/og-image.png" />
-    <title>Watidy - CRM para WhatsApp</title>
+    <meta property="og:image" content="https://watidy.com.br/imgs/logo.webp" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="waTidy - CRM para WhatsApp | Extensão Chrome para Vendas" />
+    <meta
+      name="twitter:description"
+      content="waTidy é o CRM para WhatsApp mais completo do Brasil. Gerencie leads, automatize atendimentos e aumente suas vendas. Mais de 250.000 usuários."
+    />
+    <meta name="twitter:image" content="https://watidy.com.br/imgs/logo.webp" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/Logo-preta.png" />
+
+    <!-- Preload crítico -->
+    <link rel="preload" href="/Logo-preta.png" as="image" />
+    <link rel="preload" href="/imgs/Arte1.avif" as="image" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://watidy.com.br/#organization",
+          "name": "waTidy",
+          "url": "https://watidy.com.br",
+          "logo": "https://watidy.com.br/imgs/logo.webp",
+          "sameAs": [
+            "https://www.instagram.com/watidy_crm/",
+            "https://www.youtube.com/@watidy",
+            "https://www.tiktok.com/@watidyapp"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+55-31-2942-4122",
+            "contactType": "customer support",
+            "availableLanguage": "Portuguese"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://watidy.com.br/#software",
+          "name": "waTidy",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Chrome, Edge, Opera",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL",
+            "description": "Plano gratuito disponível"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "250000"
+          },
+          "description": "CRM completo para WhatsApp Web. Gerencie leads, automatize atendimentos, kanban de vendas e muito mais. Extensão para Google Chrome.",
+          "url": "https://watidy.com.br",
+          "publisher": {
+            "@id": "https://watidy.com.br/#organization"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Como usar a ferramenta?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A ferramenta pode ser usada como uma extensão do Google Chrome, Microsoft Edge ou Opera. Funciona tanto no Windows quanto no MAC."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Preciso de mais atendentes, como faço?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A extensão do WhatsApp Web te permite conectar até 4 atendentes. Cada usuário precisa de 1 licença, que pode ser a Free ou a Premium."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "É seguro usar o waTidy?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim, a ferramenta passou por um processo rigoroso antes de ser publicada no repositório do Google. Para estar lá, é necessário passar por um longo processo de auditoria e controle do código-fonte."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "O waTidy armazena minhas informações de contato?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Não. Os dados transacionados no waTidy ficam armazenados localmente na sua máquina. Não possuímos servidores de armazenamento."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como funciona o suporte?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Se você precisar entrar em contato conosco, nos chame pelo whatsapp 3129424122. Atendemos em horário comercial."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     <!-- Google Tag Manager -->
     <script>((w,d,s,l,i)=> {w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

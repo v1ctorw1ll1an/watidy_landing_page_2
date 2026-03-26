@@ -25,16 +25,16 @@ const testimonials = [
 </script>
 
 <template>
-  <section id="depoimentos" class="py-20 px-4 pt-[5rem] lg:pt-[9rem] md:py-28 bg-black">
+  <section id="depoimentos" class="py-20 px-4 pt-[5rem] lg:pt-[9rem] md:py-28 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
           Veja empresários que usam
-          <span class="bg-gradient-to-r from-[#1ff81d] to-green-500 bg-clip-text text-transparent">
+          <span class="text-[var(--color-primary)]">
             watidy
           </span>
         </h2>
-        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
           Depoimentos reais de empresas transformadas com nossa solução
         </p>
       </div>
@@ -42,20 +42,20 @@ const testimonials = [
         <div
           v-for="(item, i) in testimonials"
           :key="i"
-          class="bg-zinc-800 border border-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out"
+          class="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out"
         >
           <div class="mb-6">
             <svg
               v-for="j in 5"
               :key="j"
-              class="inline-block w-5 h-5 text-[#1ff81d]"
+              class="inline-block w-5 h-5 text-[var(--color-primary)]"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
             </svg>
           </div>
-          <p class="text-gray-200 mb-6 italic">"{{ item.quote }}"</p>
+          <p class="text-gray-700 mb-6 italic">"{{ item.quote }}"</p>
           <div class="flex items-center">
             <img
               :src="item.avatar"
@@ -66,7 +66,7 @@ const testimonials = [
               loading="lazy"
             />
             <div>
-              <p class="font-bold text-white">{{ item.name }}</p>
+              <p class="font-bold text-gray-900">{{ item.name }}</p>
               <p class="text-sm text-gray-400">{{ item.title }}</p>
             </div>
           </div>

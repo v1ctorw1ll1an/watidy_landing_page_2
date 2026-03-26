@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* ─── Cor primária da marca ─────────────────────────────────────
+   Para alterar a cor do site inteiro, mude apenas este valor.
+   ─────────────────────────────────────────────────────────────── */
+@theme {
+  --color-primary: #09ef8d;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

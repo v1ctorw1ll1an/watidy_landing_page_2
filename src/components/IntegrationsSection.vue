@@ -24,16 +24,16 @@ const breakpoints = {
 </script>
 
 <template>
-  <section class="w-full bg-black py-16 lg:py-24 pt-[5rem] lg:pt-[9rem]">
+  <section class="w-full bg-white py-16 lg:py-24 pt-[5rem] lg:pt-[9rem]">
     <div class="text-center mb-12">
-      <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">
+      <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
         Integrações que impulsionam desempenho
       </h2>
-      <p class="text-lg text-white max-w-3xl mx-auto">
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
         Torne o Watidy ainda mais eficiente ao integrá-lo com outras ferramentas.
       </p>
     </div>
-    <div class="bg-black mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+    <div class="bg-white mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
       <Swiper
         :modules="modules"
         :slides-per-view="2"

@@ -92,15 +92,15 @@ const features = [
 </script>
 
 <template>
-  <section id="recursos" class="pt-[5rem] lg:pt-[9rem] bg-black">
+  <section id="recursos" class="pt-[5rem] lg:pt-[9rem] bg-white">
     <div class="container mx-auto px-4 py-10">
       <div class="text-center pb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
           Na desorganização do seu WhatsApp, o preço é alto,
           <br />
           oportunidades escapam e vendas se perdem.
         </h2>
-        <p class="text-lg max-w-2xl mx-auto text-gray-100">
+        <p class="text-lg max-w-2xl mx-auto text-gray-600">
           waTidy tem funcionalidades essenciais para gerenciar
           <br />
           e potencializar suas vendas pelo Whatsapp
@@ -112,15 +112,15 @@ const features = [
         <div
           v-for="(feature, index) in features"
           :key="index"
-          class="group relative p-6 rounded-2xl border border-gray-700 bg-zinc-900 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1"
+          class="group relative p-6 rounded-2xl border border-gray-200 bg-white shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1"
         >
-          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-500/10 to-green-900/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none z-0"></div>
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary)]/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none z-0"></div>
           <div class="relative z-10">
-            <div class="mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-gray-800 text-green-400 border border-gray-700 transition-transform group-hover:scale-105" v-html="feature.svg"></div>
-            <h3 class="text-lg font-semibold text-white mb-2 group-hover:text-[#1ff81d] transition-colors">
+            <div class="mb-4 w-14 h-14 flex items-center justify-center rounded-xl bg-gray-100 text-[var(--color-primary)] border border-gray-200 transition-transform group-hover:scale-105" v-html="feature.svg"></div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-primary)] transition-colors">
               {{ feature.title }}
             </h3>
-            <p class="text-gray-200 leading-relaxed">{{ feature.description }}</p>
+            <p class="text-gray-600 leading-relaxed">{{ feature.description }}</p>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ const features = [
     <div class="container mx-auto px-4 py-5 mt-10">
       <a
         href="#precos"
-        class="block text-2xl mx-auto w-full py-4 max-w-[400px] text-center font-bold rounded-xl bg-[#1ff81d] text-black hover:scale-105 transition-transform"
+        class="block text-2xl mx-auto w-full py-4 max-w-[400px] text-center font-bold rounded-xl bg-[var(--color-primary)] text-black hover:scale-105 transition-transform"
       >
         Assinar agora
       </a>
