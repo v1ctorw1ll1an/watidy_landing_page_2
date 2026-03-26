@@ -1,3 +1,17 @@
+---
+import '../main.css'
+import AppHeader from '../components/AppHeader.vue'
+import AppModal from '../components/AppModal.vue'
+import HeroSection from '../components/HeroSection.vue'
+import FeaturesSection from '../components/FeaturesSection.astro'
+import CtaSection from '../components/CtaSection.astro'
+import TestimonialsSection from '../components/TestimonialsSection.astro'
+import IntegrationsSection from '../components/IntegrationsSection.vue'
+import PricingSection from '../components/PricingSection.vue'
+import ResaleSection from '../components/ResaleSection.astro'
+import FaqSection from '../components/FaqSection.vue'
+import Footer from '../components/Footer.astro'
+---
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -135,7 +149,7 @@
     }
     </script>
     <!-- Google Tag Manager -->
-    <script>((w,d,s,l,i)=> {w[l]=w[l]||[];w[l].push({'gtm.start':
+    <script is:inline>((w,d,s,l,i)=> {w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://servertest.watidy.com.br/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -153,7 +167,20 @@
       ></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <AppModal client:load />
+    <div class="min-h-screen bg-white flex flex-col font-sans relative scroll-smooth z-0">
+      <AppHeader client:load />
+      <main class="z-20">
+        <HeroSection client:load />
+        <FeaturesSection />
+        <CtaSection />
+        <TestimonialsSection />
+        <IntegrationsSection client:visible />
+        <PricingSection client:idle />
+        <ResaleSection />
+        <FaqSection client:visible />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

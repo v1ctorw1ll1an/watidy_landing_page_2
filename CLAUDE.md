@@ -25,11 +25,24 @@ bunx vitest run src/__tests__/pricing.spec.js
 
 ## Architecture
 
-Single-page marketing/landing site for waTidy (WhatsApp CRM Chrome extension). No router, no store — just a static Vue 3 app mounted at `#app`.
+Marketing/landing site for waTidy (WhatsApp CRM Chrome extension). Built with Astro islands architecture: static sections are `.astro` components (zero JS), interactive sections are Vue 3 islands hydrated with `client:*` directives. No router, no store.
 
-### Component loading strategy
+Entry point is `src/pages/index.astro` — contains all `<head>` content (GTM with `is:inline`, structured data, OG tags) and composes all sections.
 
-`App.vue` eager-loads the above-the-fold components (`AppHeader`, `HeroSection`, `AppModal`) and lazy-loads everything else via `defineAsyncComponent`. This is intentional for performance — do not change eager components without considering LCP impact.
+### Islands — Vue components kept interactive
+
+| Component | Directive | Reason |
+|---|---|---|
+| `AppHeader.vue` | `client:load` | Mobile menu toggle, click-outside listener |
+| `AppModal.vue` | `client:load` | Form, validation, async webhooks, Escape key |
+| `HeroSection.vue` | `client:load` | Canvas particles, IntersectionObserver, video sync |
+| `PricingSection.vue` | `client:idle` | Range slider, computed prices, `onMounted` tracking |
+| `IntegrationsSection.vue` | `client:visible` | Swiper carousel requires JS |
+| `FaqSection.vue` | `client:visible` | Accordion toggle state |
+
+### Static sections (zero JS)
+
+`FeaturesSection.astro`, `CtaSection.astro`, `TestimonialsSection.astro`, `ResaleSection.astro`, `StatisticsCard.astro`, `Footer.astro` — rendered as plain HTML at build time, no JS shipped.
 
 ### Global modal pattern
 
@@ -71,7 +84,7 @@ Tailwind CSS v4 via `@tailwindcss/vite` plugin. The single custom token is `--co
 
 ### Testing
 
-Tests use Vitest + `@vue/test-utils` with `jsdom`. Vitest config is in `vitest.config.js` (no Tailwind plugin — CSS is excluded from tests). Global stubs for `IntersectionObserver`, `ResizeObserver`, canvas, and `fetch` are in `src/__tests__/setup.js`.
+Tests use Vitest + `@vue/test-utils` with `jsdom`. Vitest config is in `vitest.config.js` using `defineConfig` from `vitest/config` + `@vitejs/plugin-vue` — it does **not** use Astro's config, so `.astro` files are never imported by tests. Global stubs for `IntersectionObserver`, `ResizeObserver`, canvas, and `fetch` are in `src/__tests__/setup.js`.
 
 The `bun test` command runs Bun's native runner, **not** Vitest — always use `bun run test` (or `bunx vitest run`) to run the test suite.
 
@@ -146,6 +159,6 @@ await wrapper.vm.$nextTick()
 
 #### jsdom caveats
 
-- `window.location.href = '...'` inside components triggers a jsdom "Not implemented: navigation to another Document" warning — expected, not a test failure.
+- `window.location.href = '...'` inside `AppModal` (redirect after form submit) triggers jsdom "Not implemented: navigation to another Document" warnings — expected, not a test failure. Same for `Erro ao enviar formulário: ...` which is `console.error` from AppModal's catch block, intentionally triggered by the network-failure test.
 - `document.cookie` with `domain=.watidy.com.br` won't be readable back in jsdom (domain mismatch) — test the setter spy instead of reading `document.cookie`.
 - CSS classes have no effect in jsdom; assert on DOM structure and text content, not visual state.

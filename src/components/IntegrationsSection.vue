@@ -24,7 +24,7 @@ const breakpoints = {
 </script>
 
 <template>
-  <section class="w-full bg-white py-16 lg:py-24 pt-[5rem] lg:pt-[9rem]">
+  <section class="w-full bg-white pt-20 lg:pt-36 pb-16 lg:pb-24">
     <div class="text-center mb-12">
       <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
         Integrações que impulsionam desempenho

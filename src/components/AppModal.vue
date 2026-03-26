@@ -287,7 +287,7 @@ async function handleSubmit() {
             <!-- Botões -->
             <div class="flex gap-3 pt-6">
               <button type="submit" :disabled="isSubmitting"
-                class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-black shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]">
+                class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-black shadow-lg hover:shadow-xl hover:scale-105 active:scale-[0.98]">
                 <span v-if="isSubmitting" class="flex items-center">
                   <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

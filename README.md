@@ -4,8 +4,8 @@ Site institucional e de conversão do [waTidy](https://watidy.com.br), CRM para 
 
 ## Stack
 
-- **Vue 3** (Composition API, `<script setup>`)
-- **Vite 6** com `@vitejs/plugin-vue`
+- **Astro 6** com islands architecture
+- **Vue 3** (Composition API, `<script setup>`) — apenas para componentes interativos
 - **Tailwind CSS v4** via `@tailwindcss/vite` (sem `tailwind.config.js`)
 - **Biome** para lint e formatação
 - **Vitest** + `@vue/test-utils` para testes unitários
@@ -48,18 +48,31 @@ Os testes cobrem a lógica crítica de negócio: cálculo de preços, validaçã
 
 ```
 src/
-├── components/       # Seções da landing page (AppHeader, HeroSection, PricingSection…)
+├── pages/
+│   └── index.astro       # Página principal — head, GTM, composição das seções
+├── components/
+│   ├── *.astro           # Seções estáticas (zero JS no browser)
+│   └── *.vue             # Seções interativas (hidratadas como islands)
 ├── composables/
-│   ├── useModal.js   # Estado global do modal (singleton ref)
-│   └── useTracking.js# Captura de UTMs, IP e URLs de checkout com tracking
+│   ├── useModal.js       # Estado global do modal (singleton ref)
+│   └── useTracking.js    # Captura de UTMs, IP e URLs de checkout com tracking
 ├── utils/
-│   ├── color.js      # hexToRgb
-│   └── device.js     # getDeviceType (UA regex)
-├── __tests__/        # Testes Vitest
-├── App.vue           # Raiz — carrega seções eager/lazy
-├── main.js
-└── main.css          # Token --color-primary: #09ef8d
+│   ├── color.js          # hexToRgb
+│   └── device.js         # getDeviceType (UA regex)
+├── __tests__/            # Testes Vitest
+└── main.css              # Token --color-primary: #09ef8d
 ```
+
+### Islands — componentes Vue hidratados
+
+| Componente | Diretiva | Motivo |
+|---|---|---|
+| `AppHeader.vue` | `client:load` | Menu mobile, click-outside |
+| `AppModal.vue` | `client:load` | Formulário, validação, webhooks |
+| `HeroSection.vue` | `client:load` | Canvas particles, IntersectionObserver |
+| `PricingSection.vue` | `client:idle` | Slider de quantidade, preços computados |
+| `IntegrationsSection.vue` | `client:visible` | Carrossel Swiper |
+| `FaqSection.vue` | `client:visible` | Accordion |
 
 ## Deploy
 

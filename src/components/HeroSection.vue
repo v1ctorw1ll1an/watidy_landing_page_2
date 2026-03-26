@@ -117,7 +117,7 @@ function initParticles() {
 </script>
 
 <template>
-  <section class="pt-20 bg-white relative">
+  <section class="pt-20 pb-20 lg:pb-28 bg-white relative">
     <!-- Canvas de partículas (desktop only) -->
     <canvas
       ref="canvasRef"
@@ -125,9 +125,9 @@ function initParticles() {
       aria-hidden="true"
     ></canvas>
 
-    <div class="container mx-auto px-4 2xl:pb-20 relative z-10">
+    <div class="container mx-auto px-4 relative z-10">
       <div
-        class="flex flex-col gap-5 pt-20 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center lg:pt-24 xl:px-10 2xl:px-3 2xl:pt-28">
+        class="flex flex-col gap-5 pt-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-center lg:pt-12 xl:px-10 2xl:px-3">
         <!-- Título + descrição (desktop) + botão (desktop) -->
         <div class="order-1 lg:col-span-7 flex flex-col items-center">
           <h1

@@ -53,7 +53,7 @@ onMounted(() => {
 
 <template>
   <div class="flex justify-center items-center gap-4 bg-white">
-    <div id="precos" class="grid grid-cols-1 lg:grid-cols-12 w-full container justify-center lg:justify-start pt-[120px] max-w-7xl">
+    <div id="precos" class="grid grid-cols-1 lg:grid-cols-12 w-full container justify-center lg:justify-start pt-20 lg:pt-36 pb-20 lg:pb-28 max-w-7xl">
 
       <!-- Card Teste Gratuito -->
       <div class="w-full flex justify-center px-4 col-span-4">
@@ -82,7 +82,7 @@ onMounted(() => {
             <button
               type="button"
               @click="openModal"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
             >
               <span class="relative z-[9] flex items-center gap-2 font-bold">
                 Criar Conta Gratuita
@@ -220,7 +220,7 @@ onMounted(() => {
           <div v-if="isConsultorMode">
             <a
               href="https://wa.me/+553129424122?text=Ol%C3%A1%2C%20vim%20do%20site%20waTidy%20e%20gostaria%20de%20saber%20das%20condi%C3%A7%C3%B5es%20especiais"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:bg-[var(--color-primary)] transition-colors"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
             >
               <span class="relative z-10 flex items-center gap-2 font-bold text-black">
                 FALAR COM O CONSULTOR
@@ -235,7 +235,7 @@ onMounted(() => {
             <a
               :href="checkoutUrl"
               rel="noopener noreferrer"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:bg-[var(--color-primary)] transition-colors"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
             >
               <span class="relative z-[9] flex items-center gap-2 font-bold">
                 ASSINAR AGORA
