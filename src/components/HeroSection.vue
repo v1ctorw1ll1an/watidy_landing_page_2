@@ -163,6 +163,7 @@ function initParticles() {
               muted
               playsinline
               preload="metadata"
+              fetchpriority="high"
               poster="/imgs/Arte1.avif"
               width="600"
               height="338"

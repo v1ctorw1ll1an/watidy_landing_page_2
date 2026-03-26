@@ -50,9 +50,8 @@ import Footer from '../components/Footer.astro'
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/Logo-preta.png" />
 
-    <!-- Preload crítico -->
-    <link rel="preload" href="/Logo-preta.png" as="image" />
-    <link rel="preload" href="/imgs/Arte1.avif" as="image" />
+    <!-- Preload crítico (LCP) -->
+    <link rel="preload" href="/imgs/Arte1.avif" as="image" fetchpriority="high" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -169,7 +168,7 @@ import Footer from '../components/Footer.astro'
     <!-- End Google Tag Manager (noscript) -->
     <AppModal client:idle />
     <div class="min-h-screen bg-white flex flex-col font-sans relative scroll-smooth z-0">
-      <AppHeader client:load />
+      <AppHeader client:idle />
       <main class="z-20">
         <HeroSection client:load />
         <FeaturesSection />
