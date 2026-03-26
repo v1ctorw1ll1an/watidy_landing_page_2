@@ -30,7 +30,7 @@ const navClass =
     class="fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-white py-5 shadow-sm border-b border-gray-100">
     <div class="container mx-auto px-4 flex items-center justify-between">
       <a href="#" class="flex items-center">
-        <div class="w-48 h-20 relative flex flex-col items-center">
+        <div class="w-48 h-16 relative flex flex-col items-center">
           <div class="w-48 h-16 relative">
             <img src="/Logo-preta.png" alt="waTidy Logo" class="w-full h-full object-contain" width="192" height="64"
               loading="eager" />

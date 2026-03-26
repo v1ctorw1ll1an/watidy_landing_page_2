@@ -120,7 +120,7 @@ function initParticles() {
 </script>
 
 <template>
-  <section class="pt-20 pb-20 lg:pb-28 bg-white relative">
+  <section class="pt-32 pb-20 lg:pb-28 bg-white relative">
     <!-- Canvas de partículas (desktop only) -->
     <canvas
       ref="canvasRef"
