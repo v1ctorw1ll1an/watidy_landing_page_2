@@ -73,6 +73,79 @@ Tailwind CSS v4 via `@tailwindcss/vite` plugin. The single custom token is `--co
 
 Tests use Vitest + `@vue/test-utils` with `jsdom`. Vitest config is in `vitest.config.js` (no Tailwind plugin — CSS is excluded from tests). Global stubs for `IntersectionObserver`, `ResizeObserver`, canvas, and `fetch` are in `src/__tests__/setup.js`.
 
-When mocking `useModal.js` in component tests, provide `{ useModal: () => ({ isOpen: ref(true/false), openModal: vi.fn(), closeModal: vi.fn() }) }` — the singleton ref means tests that import the real module must reset state in `beforeEach`.
-
 The `bun test` command runs Bun's native runner, **not** Vitest — always use `bun run test` (or `bunx vitest run`) to run the test suite.
+
+#### Mocking composables
+
+Always mock `useModal` and `useTracking` in component tests to avoid side effects:
+
+```js
+vi.mock('../composables/useModal.js', () => ({
+  useModal: () => ({ isOpen: ref(true), openModal: vi.fn(), closeModal: vi.fn() }),
+}))
+
+vi.mock('../composables/useTracking.js', () => ({
+  getCheckoutUrlsWithTracking: (urls) => urls,
+  captureTrackingData: vi.fn().mockResolvedValue({}),
+}))
+```
+
+When testing `useModal.js` directly (not mocked), the singleton `ref` persists across tests. Reset it in `beforeEach`:
+
+```js
+beforeEach(() => {
+  const { closeModal } = useModal()
+  closeModal()
+})
+```
+
+#### Mocking globals
+
+```js
+// window.location (search, href)
+vi.stubGlobal('location', { search: '?utm_source=google', href: 'http://localhost/' })
+afterEach(() => vi.unstubAllGlobals())
+
+// document.referrer (getter only)
+Object.defineProperty(document, 'referrer', { configurable: true, get: () => 'https://google.com' })
+
+// navigator.userAgent
+Object.defineProperty(navigator, 'userAgent', { configurable: true, value: 'Mozilla/5.0 (Linux; Android 11)...' })
+
+// fetch (already stubbed globally in setup.js; override per test)
+vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true, json: async () => ({ user_id: 'abc' }) })
+
+// cookie setter spy
+const cookieSpy = vi.spyOn(document, 'cookie', 'set')
+expect(cookieSpy).toHaveBeenCalledWith(expect.stringContaining('uid=abc'))
+cookieSpy.mockRestore()
+```
+
+#### Interacting with components
+
+```js
+// Change range input (v-model.number) — triggers Vue reactivity
+await wrapper.find('input[type="range"]').setValue(3)
+
+// Phone mask input uses :value + @input, not v-model
+// Set element.value directly then trigger the event
+const input = wrapper.find('#telefone')
+input.element.value = '11999999999'
+await input.trigger('input')
+
+// Submit form
+await wrapper.find('form').trigger('submit')
+await flushPromises() // resolves all pending promises (fetch, captureTrackingData, etc.)
+
+// Attach to real DOM for document-level event listeners (click outside, keydown)
+const wrapper = mount(MyComponent, { attachTo: document.body })
+afterEach(() => wrapper.unmount())
+document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+await wrapper.vm.$nextTick()
+```
+
+#### jsdom caveats
+
+- `window.location.href = '...'` inside components triggers a jsdom "Not implemented: navigation to another Document" warning — expected, not a test failure.
+- `document.cookie` with `domain=.watidy.com.br` won't be readable back in jsdom (domain mismatch) — test the setter spy instead of reading `document.cookie`.
+- CSS classes have no effect in jsdom; assert on DOM structure and text content, not visual state.
