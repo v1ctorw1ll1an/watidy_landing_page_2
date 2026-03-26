@@ -1,9 +1,18 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted, onUnmounted } from 'vue'
+import { X } from 'lucide-vue-next'
 import { useModal } from '../composables/useModal.js'
 import { captureTrackingData } from '../composables/useTracking.js'
+import { getDeviceType } from '../utils/device.js'
 
 const { isOpen, closeModal } = useModal()
+
+function onKeydown(e) {
+  if (e.key === 'Escape' && isOpen.value) closeModal()
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 
 const formData = reactive({
   nome: '',
@@ -47,14 +56,6 @@ function applyPhoneMask(e) {
   formData.telefone = formatted
 }
 
-function getDeviceType() {
-  return /mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile/i.test(
-    navigator.userAgent.toLowerCase(),
-  )
-    ? 'Mobile'
-    : 'Desktop'
-}
-
 function validate() {
   Object.keys(errors).forEach(k => delete errors[k])
 
@@ -94,7 +95,7 @@ async function handleSubmit() {
     ]
 
     let createdUserId = null
-    let bearerToken = null
+    let authDownloadPlugin = null
 
     for (const url of webhooks) {
       const response = await fetch(url, {
@@ -107,7 +108,7 @@ async function handleSubmit() {
 
       const data = await response.json().catch(() => ({}))
       if (data.user_id && !createdUserId) createdUserId = data.user_id
-      if (data.bearer_token && !bearerToken) bearerToken = data.bearer_token
+      if (data.auth_download_plugin && !authDownloadPlugin) authDownloadPlugin = data.auth_download_plugin
     }
 
     if (createdUserId) {
@@ -152,11 +153,18 @@ async function handleSubmit() {
     })
     Object.keys(errors).forEach(k => delete errors[k])
 
+    const pluginUrl = authDownloadPlugin ? new URL(authDownloadPlugin) : null
+    const bearerToken = pluginUrl ? pluginUrl.searchParams.get('bearer_token') : null
+
     if (getDeviceType() === 'Mobile') {
-      window.location.href = 'https://mobile.watidy.com.br/'
+      const mobileParams = new URLSearchParams()
+      if (createdUserId) mobileParams.set('user_id', createdUserId)
+      if (bearerToken) mobileParams.set('bearer_token', bearerToken)
+      const queryString = mobileParams.toString() ? `?${mobileParams.toString()}` : ''
+      window.location.href = `https://mobile.watidy.com.br/${queryString}`
     } else {
-      if (bearerToken) {
-        window.location.href = `https://api.wascript.com.br/external/api/auth/login/${bearerToken}`
+      if (authDownloadPlugin) {
+        window.location.href = authDownloadPlugin
       } else {
         window.location.href =
           'https://chromewebstore.google.com/detail/watidy-crm-no-whatsapp-au/gjlfpggiddcminhebiejofeglfjmleli?hl=pt-BR'
@@ -174,43 +182,40 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div
-    v-if="isOpen"
-    class="fixed inset-0 grid overflow-scroll z-[2147483647] bg-black/50 backdrop-blur-sm place-items-center h-full w-full"
-  >
+  <div v-if="isOpen"
+    class="fixed inset-0 grid overflow-scroll z-2147483647 bg-black/50 backdrop-blur-sm place-items-center h-full w-full"
+    @click.self="closeModal">
     <div class="w-full max-w-2xl mx-auto px-4">
       <div class="relative bg-white rounded-lg border border-gray-200 shadow-sm">
-        <div
-          class="absolute bg-white cursor-pointer h-8 w-8 rounded-full -top-4 -right-4 flex justify-center items-center font-bold"
-          @click="closeModal"
-        >
-          X
-        </div>
+        <button
+          class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all duration-150 shadow-md hover:shadow-lg cursor-pointer"
+          @click="closeModal" aria-label="Fechar">
+          <X class="h-4 w-4" />
+        </button>
         <!-- Header -->
         <div class="p-6 pb-0">
-          <h2 class="text-xl font-semibold tracking-tight uppercase">Teste Grátis Agora!</h2>
-          <p class="text-sm text-gray-600 mt-1">
-            Preencha os dados abaixo para garantir a sua licença de teste gratuita
-          </p>
+          <h2 class="text-xl font-semibold tracking-tight uppercase">CRIAR CONTA GRATUITA</h2>
+
         </div>
         <!-- Content -->
         <div class="p-6 pt-2 space-y-2">
           <!-- Status Message -->
           <div v-if="formStatus.type">
-            <div
-              :class="{
-                'border-green-200 bg-green-50 text-green-800': formStatus.type === 'success',
-                'border-red-200 bg-red-50 text-red-800': formStatus.type === 'error',
-              }"
-              class="rounded-lg border p-4"
-            >
+            <div :class="{
+              'border-[var(--color-primary)]/30 bg-[var(--color-primary)]/10 text-[var(--color-primary)]': formStatus.type === 'success',
+              'border-red-200 bg-red-50 text-red-800': formStatus.type === 'error',
+            }" class="rounded-lg border p-4">
               <div class="flex items-center">
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                   <svg v-if="formStatus.type === 'success'" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"></path>
                   </svg>
                   <svg v-else class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clip-rule="evenodd"></path>
                   </svg>
                 </div>
                 <div class="ml-3">
@@ -224,18 +229,15 @@ async function handleSubmit() {
             <!-- Nome -->
             <div class="space-y-1">
               <label for="nome" class="text-sm font-medium leading-none">Nome completo *</label>
-              <input
-                id="nome"
-                type="text"
-                placeholder="Seu nome completo"
-                v-model="formData.nome"
+              <input id="nome" type="text" placeholder="Seu nome completo" v-model="formData.nome"
                 :class="{ 'border-red-500': errors.nome }"
-                class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              />
+                class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
               <div v-if="errors.nome" class="rounded-lg border border-red-200 bg-red-50 p-2">
                 <div class="flex items-center">
                   <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                      clip-rule="evenodd"></path>
                   </svg>
                   <p class="ml-3 text-xs text-red-800">{{ errors.nome }}</p>
                 </div>
@@ -246,18 +248,15 @@ async function handleSubmit() {
               <!-- Email -->
               <div class="space-y-2">
                 <label for="email" class="text-sm font-medium leading-none">Email *</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="seu@email.com"
-                  v-model="formData.email"
+                <input id="email" type="email" placeholder="seu@email.com" v-model="formData.email"
                   :class="{ 'border-red-500': errors.email }"
-                  class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                />
+                  class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
                 <div v-if="errors.email" class="rounded-lg border border-red-200 bg-red-50 p-2">
                   <div class="flex items-center">
                     <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd"></path>
                     </svg>
                     <p class="ml-3 text-xs text-red-800">{{ errors.email }}</p>
                   </div>
@@ -266,41 +265,39 @@ async function handleSubmit() {
               <!-- Telefone -->
               <div class="space-y-2">
                 <label for="telefone" class="text-sm font-medium leading-none">Telefone *</label>
-                <input
-                  id="telefone"
-                  type="tel"
-                  placeholder="11999999999"
-                  :value="formData.telefone"
-                  @input="applyPhoneMask"
-                  :class="{ 'border-red-500': errors.telefone }"
-                  class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                />
+                <input id="telefone" type="tel" placeholder="11999999999" :value="formData.telefone"
+                  @input="applyPhoneMask" :class="{ 'border-red-500': errors.telefone }"
+                  class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
                 <div v-if="errors.telefone" class="rounded-lg border border-red-200 bg-red-50 p-2">
                   <div class="flex items-center">
                     <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd"></path>
                     </svg>
                     <p class="ml-3 text-xs text-red-800">{{ errors.telefone }}</p>
                   </div>
                 </div>
               </div>
             </div>
+            <p class="text-sm text-gray-600 mt-3 text-center">
+              Sua senha provisória é <b>1234</b>
+            </p>
 
             <!-- Botões -->
             <div class="flex gap-3 pt-6">
-              <button
-                type="submit"
-                :disabled="isSubmitting"
-                class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[#1ff81d] hover:bg-[#1ff81d]/90 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-              >
+              <button type="submit" :disabled="isSubmitting"
+                class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-black shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]">
                 <span v-if="isSubmitting" class="flex items-center">
                   <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
                   </svg>
                   Enviando...
                 </span>
-                <span v-else>Liberar Acesso Grátis</span>
+                <span v-else>Criar Conta Gratuita</span>
               </button>
             </div>
           </form>
