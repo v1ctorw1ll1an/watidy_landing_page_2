@@ -128,8 +128,11 @@ const features = [
       aria-label="Ver todos os recursos"
       class="w-12 h-12 rounded-full bg-[var(--color-primary)] text-black flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg id="expand-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 5v14M5 12h14"/>
+      </svg>
+      <svg id="collapse-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <path d="M5 12h14"/>
       </svg>
     </button>
   </div>
@@ -149,18 +152,58 @@ const features = [
     .extra-feature {
       display: none;
     }
-    #features-grid.expanded .extra-feature {
-      display: block;
-    }
   }
 </style>
 
 <script>
   const btn = document.getElementById('expand-btn')
-  const wrapper = document.getElementById('expand-btn-wrapper')
   const grid = document.getElementById('features-grid')
+  const expandIcon = document.getElementById('expand-icon')
+  const collapseIcon = document.getElementById('collapse-icon')
+
+  let isExpanded = false
+
   btn?.addEventListener('click', () => {
-    grid?.classList.add('expanded')
-    wrapper?.classList.add('hidden')
+    isExpanded = !isExpanded
+    const extraCards = Array.from(grid?.querySelectorAll('.extra-feature') ?? [])
+
+    if (isExpanded) {
+      extraCards.forEach((card, i) => {
+        const el = card as HTMLElement
+        el.style.display = 'block'
+        el.style.opacity = '0'
+        el.style.transform = 'translateY(16px) scale(0.97)'
+        el.style.transition = 'none'
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.style.transition = `opacity 0.4s ease ${i * 40}ms, transform 0.4s ease ${i * 40}ms`
+            el.style.opacity = '1'
+            el.style.transform = 'translateY(0) scale(1)'
+          })
+        })
+      })
+    } else {
+      extraCards.forEach((card, i) => {
+        const el = card as HTMLElement
+        el.style.transition = `opacity 0.25s ease ${i * 25}ms, transform 0.25s ease ${i * 25}ms`
+        el.style.opacity = '0'
+        el.style.transform = 'translateY(16px) scale(0.97)'
+      })
+      const total = extraCards.length
+      setTimeout(() => {
+        extraCards.forEach((card) => {
+          const el = card as HTMLElement
+          el.style.display = 'none'
+          el.style.opacity = ''
+          el.style.transform = ''
+          el.style.transition = ''
+        })
+      }, 250 + total * 25 + 100)
+    }
+
+    if (expandIcon && collapseIcon) {
+      expandIcon.style.display = isExpanded ? 'none' : 'block'
+      collapseIcon.style.display = isExpanded ? 'block' : 'none'
+    }
   })
 </script>

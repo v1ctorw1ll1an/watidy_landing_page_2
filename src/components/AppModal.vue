@@ -182,10 +182,18 @@ async function handleSubmit() {
 </script>
 
 <template>
+  <Transition
+    enter-active-class="transition-opacity duration-300 ease-out"
+    enter-from-class="opacity-0"
+    enter-to-class="opacity-100"
+    leave-active-class="transition-opacity duration-200 ease-in"
+    leave-from-class="opacity-100"
+    leave-to-class="opacity-0"
+  >
   <div v-if="isOpen"
     class="fixed inset-0 grid overflow-scroll z-2147483647 bg-black/50 backdrop-blur-sm place-items-center h-full w-full"
     @click.self="closeModal">
-    <div class="w-full max-w-2xl mx-auto px-4">
+    <div class="w-full max-w-2xl mx-auto px-4 animate-modal-in">
       <div class="relative bg-white rounded-lg border border-gray-200 shadow-sm">
         <button
           class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all duration-150 shadow-md hover:shadow-lg cursor-pointer"
@@ -305,4 +313,5 @@ async function handleSubmit() {
       </div>
     </div>
   </div>
+  </Transition>
 </template>

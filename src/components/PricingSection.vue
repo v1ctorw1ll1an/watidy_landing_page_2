@@ -53,10 +53,10 @@ onMounted(() => {
 
 <template>
   <div class="flex justify-center items-center gap-4 bg-white">
-    <div id="precos" class="grid grid-cols-1 lg:grid-cols-12 w-full container justify-center lg:justify-start pt-12 lg:pt-20 pb-8 lg:pb-12 max-w-7xl">
+    <div id="precos" class="grid grid-cols-1 lg:grid-cols-12 w-full container justify-center pt-12 lg:pt-20 pb-8 lg:pb-12 max-w-5xl">
 
       <!-- Card Teste Gratuito -->
-      <div class="w-full flex justify-center px-4 col-span-4">
+      <div class="w-full flex justify-center px-4 col-span-5">
         <section class="w-full flex flex-col rounded-2xl p-5 lg:p-8 shadow-brand transition-colors duration-100 bg-white text-gray-900 border border-gray-200">
           <div class="flex justify-between items-center mb-3 lg:mb-6">
             <h2 class="text-2xl font-bold text-center lg:text-start w-full">Teste Gratuito</h2>
@@ -161,16 +161,20 @@ onMounted(() => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                   </span>
                 </div>
-                <div class="text-gray-500 text-xs lg:text-sm">
-                  <span :class="hasExtraDiscount ? 'line-through' : ''">{{ formatPrice(currentOriginalPrice) }}</span>
-                </div>
-                <div class="text-base lg:text-2xl font-bold text-[var(--color-primary)] text-shadow-brand leading-tight">
-                  12x {{ formatPrice(currentInstallmentPrice) }}
-                </div>
-                <div class="text-xs text-gray-500">/ ano</div>
-                <div v-if="hasExtraDiscount">
-                  <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">5% DESC</span>
-                </div>
+                <Transition name="price-fade" mode="out-in">
+                  <div :key="quantity" class="flex flex-col items-center gap-1">
+                    <div class="text-gray-500 text-xs lg:text-sm">
+                      <span :class="hasExtraDiscount ? 'line-through' : ''">{{ formatPrice(currentOriginalPrice) }}</span>
+                    </div>
+                    <div class="text-base lg:text-2xl font-bold text-[var(--color-primary)] text-shadow-brand leading-tight">
+                      12x {{ formatPrice(currentInstallmentPrice) }}
+                    </div>
+                    <div class="text-xs text-gray-500">/ ano</div>
+                    <div v-if="hasExtraDiscount">
+                      <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">5% DESC</span>
+                    </div>
+                  </div>
+                </Transition>
               </div>
               <!-- OU -->
               <div class="col-span-2 flex justify-center items-center">
@@ -187,15 +191,19 @@ onMounted(() => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                   </span>
                 </div>
-                <div class="line-through text-gray-500 text-xs lg:text-sm">{{ formatPrice(currentOriginalPrice) }}</div>
-                <div class="text-base lg:text-2xl font-bold text-[var(--color-primary)] text-shadow-brand leading-tight">
-                  {{ formatPrice(currentCashPrice) }}
-                </div>
-                <div class="text-xs text-gray-500">à vista / ano</div>
-                <div class="flex flex-wrap justify-center gap-1">
-                  <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">23% OFF</span>
-                  <span v-if="hasExtraDiscount" class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">+5%</span>
-                </div>
+                <Transition name="price-fade" mode="out-in">
+                  <div :key="quantity" class="flex flex-col items-center gap-1">
+                    <div class="line-through text-gray-500 text-xs lg:text-sm">{{ formatPrice(currentOriginalPrice) }}</div>
+                    <div class="text-base lg:text-2xl font-bold text-[var(--color-primary)] text-shadow-brand leading-tight">
+                      {{ formatPrice(currentCashPrice) }}
+                    </div>
+                    <div class="text-xs text-gray-500">à vista / ano</div>
+                    <div class="flex flex-wrap justify-center gap-1">
+                      <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">23% OFF</span>
+                      <span v-if="hasExtraDiscount" class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">+5%</span>
+                    </div>
+                  </div>
+                </Transition>
               </div>
             </div>
           </div>
@@ -251,3 +259,15 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.price-fade-enter-active,
+.price-fade-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.price-fade-enter-from,
+.price-fade-leave-to {
+  opacity: 0;
+  transform: translateY(5px);
+}
+</style>

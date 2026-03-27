@@ -47,10 +47,14 @@ const navClass =
 
       <!-- Mobile Menu -->
       <div id="mobile-menu-wrapper" class="md:hidden">
-        <button aria-label="menu" @click.stop="menuOpen = !menuOpen" class="cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#374151">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+        <button aria-label="menu" @click.stop="menuOpen = !menuOpen"
+          class="cursor-pointer relative w-6 h-5 flex flex-col justify-between">
+          <span :class="['block h-0.5 w-full bg-gray-700 transition-all duration-300 origin-center',
+            menuOpen ? 'rotate-45 translate-y-[9px]' : '']"></span>
+          <span :class="['block h-0.5 w-full bg-gray-700 transition-all duration-300',
+            menuOpen ? 'opacity-0 scale-x-0' : '']"></span>
+          <span :class="['block h-0.5 w-full bg-gray-700 transition-all duration-300 origin-center',
+            menuOpen ? '-rotate-45 -translate-y-[9px]' : '']"></span>
         </button>
 
         <Transition enter-active-class="transition-all duration-200 ease-out"
