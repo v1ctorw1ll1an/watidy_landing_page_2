@@ -57,7 +57,7 @@ onMounted(() => {
 
       <!-- Card Teste Gratuito -->
       <div class="w-full flex justify-center px-4 col-span-4">
-        <section class="w-full flex flex-col rounded-2xl p-5 lg:p-8 shadow-xl transition-colors duration-100 bg-white text-gray-900 border border-gray-200">
+        <section class="w-full flex flex-col rounded-2xl p-5 lg:p-8 shadow-brand transition-colors duration-100 bg-white text-gray-900 border border-gray-200">
           <div class="flex justify-between items-center mb-3 lg:mb-6">
             <h2 class="text-2xl font-bold text-center lg:text-start w-full">Teste Gratuito</h2>
           </div>
@@ -91,7 +91,7 @@ onMounted(() => {
             <button
               type="button"
               @click="openModal"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-brand hover:scale-105 transition-transform"
             >
               <span class="relative z-[9] flex items-center gap-2 font-bold">
                 Criar Conta Gratuita
@@ -107,7 +107,7 @@ onMounted(() => {
 
       <!-- Card Assinatura -->
       <div class="w-full flex justify-center px-4 bg-white lg:pt-0 pt-6 col-span-7">
-        <section class="w-full max-w-2xl flex flex-col rounded-2xl p-5 lg:p-8 shadow-xl transition-colors duration-100 bg-white text-gray-900 border border-gray-200">
+        <section class="w-full max-w-2xl flex flex-col rounded-2xl p-5 lg:p-8 shadow-brand transition-colors duration-100 bg-white text-gray-900 border border-gray-200">
           <div class="flex justify-between items-center mb-3 lg:mb-6">
             <h2 class="text-2xl font-bold">Assinatura Anual Watidy</h2>
             <div class="hidden lg:flex items-center text-sm gap-2">
@@ -217,7 +217,7 @@ onMounted(() => {
           <div v-if="isConsultorMode">
             <a
               href="https://wa.me/+553129424122?text=Ol%C3%A1%2C%20vim%20do%20site%20waTidy%20e%20gostaria%20de%20saber%20das%20condi%C3%A7%C3%B5es%20especiais"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-brand hover:scale-105 transition-transform"
             >
               <span class="relative z-10 flex items-center gap-2 font-bold text-black">
                 FALAR COM O CONSULTOR
@@ -232,7 +232,7 @@ onMounted(() => {
             <a
               :href="checkoutUrl"
               rel="noopener noreferrer"
-              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-lg hover:scale-105 transition-transform"
+              class="cursor-pointer w-full group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-black bg-[var(--color-primary)] rounded-xl shadow-brand hover:scale-105 transition-transform"
             >
               <span class="relative z-[9] flex items-center gap-2 font-bold">
                 ASSINAR AGORA

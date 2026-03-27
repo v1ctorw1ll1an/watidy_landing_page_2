@@ -47,7 +47,7 @@ const navClass =
 
       <!-- Mobile Menu -->
       <div id="mobile-menu-wrapper" class="md:hidden">
-        <button aria-label="menu" @click.stop="menuOpen = !menuOpen">
+        <button aria-label="menu" @click.stop="menuOpen = !menuOpen" class="cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#374151">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -60,7 +60,7 @@ const navClass =
           <div v-if="menuOpen" class="shadow-lg absolute top-full left-0 right-0 bg-white border-b border-gray-100">
             <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
               <a v-for="link in navLinks" :key="link.href" :href="link.href"
-                class="font-bold hover:text-[var(--color-primary)] transition-colors py-2 text-gray-800"
+                class="font-bold hover:text-[var(--color-primary)] transition-colors py-2 text-gray-800 cursor-pointer"
                 @click="menuOpen = false">
                 {{ link.label }}
               </a>

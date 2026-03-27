@@ -156,7 +156,7 @@ function initParticles() {
           <!-- Botão: oculto no mobile -->
           <button
             @click="openModal"
-            class="hidden lg:flex cursor-pointer px-20 xl:px-28 py-6 2xl:py-8 rounded-2xl text-xl 2xl:text-3xl text-black font-bold shadow-lg bg-[var(--color-primary)] justify-center items-center gap-2 hover:scale-105 transition-transform">
+            class="hidden lg:flex cursor-pointer px-20 xl:px-28 py-6 2xl:py-8 rounded-2xl text-xl 2xl:text-3xl text-black font-bold shadow-brand bg-[var(--color-primary)] justify-center items-center gap-2 hover:scale-105 transition-transform">
             Criar Conta Gratuita
           </button>
         </div>
@@ -208,7 +208,7 @@ function initParticles() {
         <!-- Botão mobile: oculto no desktop -->
         <button
           @click="openModal"
-          class="order-3 lg:hidden cursor-pointer w-full py-5 rounded-2xl text-lg text-black font-bold shadow-lg bg-[var(--color-primary)] flex justify-center items-center hover:scale-105 transition-transform">
+          class="order-3 lg:hidden cursor-pointer w-full py-5 rounded-2xl text-lg text-black font-bold shadow-brand bg-[var(--color-primary)] flex justify-center items-center hover:scale-105 transition-transform">
           Criar Conta Gratuita
         </button>
       </div>
@@ -231,7 +231,7 @@ function initParticles() {
       <div class="video-pulse-wrapper rounded-xl shadow-2xl">
         <button
           @click="closeFloat"
-          class="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-gray-800 text-white text-xs flex items-center justify-center hover:bg-gray-600 transition-colors"
+          class="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-gray-800 text-white text-xs flex items-center justify-center hover:bg-gray-600 transition-colors cursor-pointer"
           aria-label="Fechar vídeo"
         >
           ✕

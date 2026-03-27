@@ -4,14 +4,14 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 
 const integrations = [
-  { nome: 'bitrix', logo: '/imgs/integracoes/bitrix24-logo-eng.png', alt: 'Bitrix24' },
-  { nome: 'erp', logo: '/imgs/integracoes/erp.webp', alt: 'ERP' },
-  { nome: 'googlesheets', logo: '/imgs/integracoes/png-transparent-google-sheets-logo-and-symbol-thumbnail.png', alt: 'Google Sheets' },
-  { nome: 'hubspot', logo: '/imgs/integracoes/HubSpot_Logo.svg.png', alt: 'HubSpot' },
-  { nome: 'webhooks', logo: '/imgs/integracoes/webhooks.png', alt: 'Webhooks' },
-  { nome: 'nfe', logo: '/imgs/integracoes/nota-fiscal-eletronica.jpg', alt: 'NFe' },
-  { nome: 'pipedrive', logo: '/imgs/integracoes/Pipedrive_Logo.svg.png', alt: 'Pipedrive' },
-  { nome: 'rdstation', logo: '/imgs/integracoes/rdstatiion.png', alt: 'RD Station' },
+  { nome: 'bitrix', logo: '/imgs/integracoes/bitrix24.png', alt: 'Bitrix24' },
+  { nome: 'erp', logo: '/imgs/integracoes/erp.png', alt: 'ERP' },
+  { nome: 'googlesheets', logo: '/imgs/integracoes/google%20sheets.png', alt: 'Google Sheets' },
+  { nome: 'hubspot', logo: '/imgs/integracoes/hubspot.png', alt: 'HubSpot' },
+  { nome: 'webhook', logo: '/imgs/integracoes/webhook.png', alt: 'Webhooks' },
+  { nome: 'nfe', logo: '/imgs/integracoes/nfe.png', alt: 'NFe' },
+  { nome: 'pipedrive', logo: '/imgs/integracoes/pipedrive.png', alt: 'Pipedrive' },
+  { nome: 'rdstation', logo: '/imgs/integracoes/rd.png', alt: 'RD Station' },
 ]
 
 const modules = [Autoplay]
