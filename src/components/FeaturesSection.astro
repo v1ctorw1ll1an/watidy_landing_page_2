@@ -103,10 +103,10 @@ const features = [
   </div>
   <div class="container mx-auto overflow-x-auto scrollbar-hide sm:overflow-visible">
     <div id="features-grid" class="flex gap-4 px-4 pb-4
-                sm:grid sm:grid-cols-2 sm:overflow-visible sm:gap-8 sm:mx-10 sm:px-0 sm:pb-0
-                lg:grid-cols-3 lg:gap-10">
+                sm:grid sm:grid-cols-2 sm:overflow-visible sm:gap-6 sm:px-4 sm:pb-0
+                lg:grid-cols-3 lg:gap-8 lg:px-4">
       {features.map((feature, i) => (
-        <div class={`snap-start shrink-0 w-[82vw] sm:w-auto${i >= 6 ? ' extra-feature' : ''}
+        <div class={`snap-start shrink-0 w-[82vw] sm:w-auto sm:min-w-0${i >= 6 ? ' extra-feature' : ''}
                     group relative p-6 rounded-2xl border border-gray-200 bg-white shadow-brand hover:shadow-brand transition duration-300 ease-in-out transform hover:-translate-y-1`}>
           <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-primary)]/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none z-0"></div>
           <div class="relative z-10">
