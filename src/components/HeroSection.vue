@@ -145,9 +145,9 @@ function initParticles() {
           </h1>
           <!-- Descrição: oculta no mobile -->
           <p class="hidden lg:block text-lg xl:text-xl mb-8 max-w-xl text-center text-gray-600">
-            O Watidy oferece recursos pensados nas melhores práticas
+            O WaTidy oferece recursos pensados nas melhores práticas
             comerciais, trazendo as funcionalidades que você sempre
-            precisou para dentro do seu whatsapp web.
+            precisou para dentro do seu WhatsApp Web.
           </p>
           <!-- Botão: oculto no mobile -->
           <button @click="openModal"
@@ -204,7 +204,7 @@ function initParticles() {
           ✕
         </button>
         <video ref="floatVideoRef" src="/video-hero.mp4" class="w-full rounded-xl block" controls playsinline
-          preload="none" poster="/imgs/Arte1.jpeg"></video>
+          preload="none" poster="/imgs/Arte1.png"></video>
       </div>
     </div>
   </Transition>

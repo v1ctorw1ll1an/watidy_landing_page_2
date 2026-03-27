@@ -118,7 +118,7 @@ onMounted(() => {
             </div>
           </div>
           <p class="hidden lg:block text-sm opacity-70 mb-6">
-            Tenha acesso completo a todos os recursos premium do Watidy e profissionalize seu whatsapp.
+            Tenha acesso completo a todos os recursos premium do WaTidy e profissionalize seu WhatsApp.
           </p>
 
           <!-- Slider de Quantidade -->

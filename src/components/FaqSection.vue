@@ -36,7 +36,7 @@ const faqs = [
     id: 'item-5',
     question: 'Como funciona o suporte?',
     answer:
-      'Se você precisar entrar em contato conosco, nos chame pelo whatsapp 3129424122. Atendemos em horário comercial.',
+      'Se você precisar entrar em contato conosco, nos chame pelo WhatsApp (31) 2942-4122. Atendemos em horário comercial.',
   },
 ]
 </script>
