@@ -57,11 +57,14 @@ export async function captureTrackingData() {
 
 export function getCheckoutUrlsWithTracking(baseUrls) {
   const urlParams = new URLSearchParams(window.location.search)
+  const get = name => getCookieOrParam(name, urlParams)
+
   const trackedParams = [
     'utm_source',
     'utm_medium',
     'utm_campaign',
     'gad_source',
+    'gad_campaign',
     'utm_term',
     'utm_content',
     'utm_id',
@@ -71,17 +74,16 @@ export function getCheckoutUrlsWithTracking(baseUrls) {
     'gclid',
     'gbraid',
     'fbclid',
-    'screen_resolution',
-    'user_ip',
-    'page_url',
-    'referrer',
-    'device',
-    'user_agent',
+    'ttclid',
+    'ttp',
+    'wbraid',
+    'sck',
   ]
 
   const allParams = {}
-  urlParams.forEach((value, key) => {
-    if (trackedParams.includes(key)) allParams[key] = value
+  trackedParams.forEach(name => {
+    const value = get(name)
+    if (value) allParams[name] = value
   })
 
   if (!allParams['utm_source'] && document.referrer) {
@@ -96,7 +98,7 @@ export function getCheckoutUrlsWithTracking(baseUrls) {
     try {
       const urlObj = new URL(url)
       Object.entries(allParams).forEach(([key, value]) => {
-        if (value) urlObj.searchParams.append(key, value)
+        urlObj.searchParams.append(key, value)
       })
       return urlObj.toString()
     } catch (_) {
