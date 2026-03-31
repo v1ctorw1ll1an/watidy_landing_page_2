@@ -152,7 +152,7 @@ function initParticles() {
           <!-- Botão: oculto no mobile -->
           <button @click="openModal"
             class="hidden lg:flex cursor-pointer px-20 xl:px-28 py-6 2xl:py-8 rounded-2xl text-xl 2xl:text-3xl text-black font-bold shadow-brand bg-[var(--color-primary)] justify-center items-center gap-2 hover:scale-105 transition-transform">
-            Criar Conta Gratuita
+            Teste Gratuitamente
           </button>
         </div>
 
@@ -185,7 +185,7 @@ function initParticles() {
         <!-- Botão mobile: oculto no desktop -->
         <button @click="openModal"
           class="order-3 lg:hidden cursor-pointer w-full py-5 rounded-2xl text-lg text-black font-bold shadow-brand bg-[var(--color-primary)] flex justify-center items-center hover:scale-105 transition-transform">
-          Criar Conta Gratuita
+          Teste Gratuitamente
         </button>
       </div>
     </div>

@@ -182,136 +182,131 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <Transition
-    enter-active-class="transition-opacity duration-300 ease-out"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
-    leave-active-class="transition-opacity duration-200 ease-in"
-    leave-from-class="opacity-100"
-    leave-to-class="opacity-0"
-  >
-  <div v-if="isOpen"
-    class="fixed inset-0 grid overflow-scroll z-2147483647 bg-black/50 backdrop-blur-sm place-items-center h-full w-full"
-    @click.self="closeModal">
-    <div class="w-full max-w-2xl mx-auto px-4 animate-modal-in">
-      <div class="relative bg-white rounded-lg border border-gray-200 shadow-sm">
-        <button
-          class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all duration-150 shadow-md hover:shadow-lg cursor-pointer"
-          @click="closeModal" aria-label="Fechar">
-          <X class="h-4 w-4" />
-        </button>
-        <!-- Header -->
-        <div class="p-6 pb-0">
-          <h2 class="text-xl font-semibold tracking-tight uppercase">CRIAR CONTA GRATUITA</h2>
+  <Transition enter-active-class="transition-opacity duration-300 ease-out" enter-from-class="opacity-0"
+    enter-to-class="opacity-100" leave-active-class="transition-opacity duration-200 ease-in"
+    leave-from-class="opacity-100" leave-to-class="opacity-0">
+    <div v-if="isOpen"
+      class="fixed inset-0 grid overflow-scroll z-2147483647 bg-black/50 backdrop-blur-sm place-items-center h-full w-full"
+      @click.self="closeModal">
+      <div class="w-full max-w-2xl mx-auto px-4 animate-modal-in">
+        <div class="relative bg-white rounded-lg border border-gray-200 shadow-sm">
+          <button
+            class="absolute top-3 right-3 h-8 w-8 rounded-full bg-white flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-all duration-150 shadow-md hover:shadow-lg cursor-pointer"
+            @click="closeModal" aria-label="Fechar">
+            <X class="h-4 w-4" />
+          </button>
+          <!-- Header -->
+          <div class="p-6 pb-0">
+            <h2 class="text-xl font-semibold tracking-tight uppercase">Teste Gratuitamente</h2>
 
-        </div>
-        <!-- Content -->
-        <div class="p-6 pt-2 space-y-2">
-          <!-- Status Message -->
-          <div v-if="formStatus.type">
-            <div :class="{
-              'border-[var(--color-primary)]/30 bg-[var(--color-primary)]/10 text-[var(--color-primary)]': formStatus.type === 'success',
-              'border-red-200 bg-red-50 text-red-800': formStatus.type === 'error',
-            }" class="rounded-lg border p-4">
-              <div class="flex items-center">
-                <div class="shrink-0">
-                  <svg v-if="formStatus.type === 'success'" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <svg v-else class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium">{{ formStatus.message }}</p>
-                </div>
-              </div>
-            </div>
           </div>
-
-          <form @submit.prevent="handleSubmit" class="space-y-2">
-            <!-- Nome -->
-            <div class="space-y-1">
-              <label for="nome" class="text-sm font-medium leading-none">Nome completo *</label>
-              <input id="nome" type="text" placeholder="Seu nome completo" v-model="formData.nome"
-                :class="{ 'border-red-500': errors.nome }"
-                class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
-              <div v-if="errors.nome" class="rounded-lg border border-red-200 bg-red-50 p-2">
+          <!-- Content -->
+          <div class="p-6 pt-2 space-y-2">
+            <!-- Status Message -->
+            <div v-if="formStatus.type">
+              <div :class="{
+                'border-[var(--color-primary)]/30 bg-[var(--color-primary)]/10 text-[var(--color-primary)]': formStatus.type === 'success',
+                'border-red-200 bg-red-50 text-red-800': formStatus.type === 'error',
+              }" class="rounded-lg border p-4">
                 <div class="flex items-center">
-                  <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  <p class="ml-3 text-xs text-red-800">{{ errors.nome }}</p>
+                  <div class="shrink-0">
+                    <svg v-if="formStatus.type === 'success'" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    <svg v-else class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium">{{ formStatus.message }}</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Email -->
-              <div class="space-y-2">
-                <label for="email" class="text-sm font-medium leading-none">Email *</label>
-                <input id="email" type="email" placeholder="seu@email.com" v-model="formData.email"
-                  :class="{ 'border-red-500': errors.email }"
+            <form @submit.prevent="handleSubmit" class="space-y-2">
+              <!-- Nome -->
+              <div class="space-y-1">
+                <label for="nome" class="text-sm font-medium leading-none">Nome completo *</label>
+                <input id="nome" type="text" placeholder="Seu nome completo" v-model="formData.nome"
+                  :class="{ 'border-red-500': errors.nome }"
                   class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
-                <div v-if="errors.email" class="rounded-lg border border-red-200 bg-red-50 p-2">
+                <div v-if="errors.nome" class="rounded-lg border border-red-200 bg-red-50 p-2">
                   <div class="flex items-center">
                     <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
                         clip-rule="evenodd"></path>
                     </svg>
-                    <p class="ml-3 text-xs text-red-800">{{ errors.email }}</p>
+                    <p class="ml-3 text-xs text-red-800">{{ errors.nome }}</p>
                   </div>
                 </div>
               </div>
-              <!-- Telefone -->
-              <div class="space-y-2">
-                <label for="telefone" class="text-sm font-medium leading-none">Telefone *</label>
-                <input id="telefone" type="tel" placeholder="11999999999" :value="formData.telefone"
-                  @input="applyPhoneMask" :class="{ 'border-red-500': errors.telefone }"
-                  class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
-                <div v-if="errors.telefone" class="rounded-lg border border-red-200 bg-red-50 p-2">
-                  <div class="flex items-center">
-                    <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd"
-                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                        clip-rule="evenodd"></path>
-                    </svg>
-                    <p class="ml-3 text-xs text-red-800">{{ errors.telefone }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p class="text-sm text-gray-600 mt-3 text-center">
-              Sua senha provisória é <b>1234</b>
-            </p>
 
-            <!-- Botões -->
-            <div class="flex gap-3 pt-6">
-              <button type="submit" :disabled="isSubmitting"
-                class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-black shadow-brand hover:scale-105 active:scale-[0.98]">
-                <span v-if="isSubmitting" class="flex items-center">
-                  <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                  </svg>
-                  Enviando...
-                </span>
-                <span v-else>Criar Conta Gratuita</span>
-              </button>
-            </div>
-          </form>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Email -->
+                <div class="space-y-2">
+                  <label for="email" class="text-sm font-medium leading-none">Email *</label>
+                  <input id="email" type="email" placeholder="seu@email.com" v-model="formData.email"
+                    :class="{ 'border-red-500': errors.email }"
+                    class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+                  <div v-if="errors.email" class="rounded-lg border border-red-200 bg-red-50 p-2">
+                    <div class="flex items-center">
+                      <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      <p class="ml-3 text-xs text-red-800">{{ errors.email }}</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Telefone -->
+                <div class="space-y-2">
+                  <label for="telefone" class="text-sm font-medium leading-none">Telefone *</label>
+                  <input id="telefone" type="tel" placeholder="11999999999" :value="formData.telefone"
+                    @input="applyPhoneMask" :class="{ 'border-red-500': errors.telefone }"
+                    class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+                  <div v-if="errors.telefone" class="rounded-lg border border-red-200 bg-red-50 p-2">
+                    <div class="flex items-center">
+                      <svg class="h-3 w-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      <p class="ml-3 text-xs text-red-800">{{ errors.telefone }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-gray-600 mt-3 text-center">
+                Sua senha provisória é <b>1234</b>
+              </p>
+
+              <!-- Botões -->
+              <div class="flex gap-3 pt-6">
+                <button type="submit" :disabled="isSubmitting"
+                  class="flex-1 inline-flex items-center justify-center rounded-md font-bold text-lg px-3 py-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-black shadow-brand hover:scale-105 active:scale-[0.98]">
+                  <span v-if="isSubmitting" class="flex items-center">
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                      </path>
+                    </svg>
+                    Enviando...
+                  </span>
+                  <span v-else>Teste Gratuitamente</span>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </Transition>
 </template>
